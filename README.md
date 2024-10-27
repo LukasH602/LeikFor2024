@@ -5,8 +5,7 @@
 ## Verkefni 1
 -
 -
--
--
+- verk1.1.mp4
 -
 
 ## Verkefni 2
