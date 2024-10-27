@@ -1,45 +1,108 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
-    private float speed = 20.0f;
-    private float turnSpeed = 45.0f;
-    private float jumpForce = 10.0f;
-    private bool isOnGround = true; // Check if the player is on the ground
-    private float horizontalInput;
-    private float forwardInput;
+    // Rigidbody leikmannsins.
+    private Rigidbody rb; 
 
-    private Rigidbody playerRb;
+    // Breyta til að halda utan um safnað "PickUp" hluta.
+    private int count;
 
-    // Start is called before the first frame update
+    // Hreyfing meðfram X- og Y-ásum.
+    private float movementX;
+    private float movementY;
+
+    // Hraði sem leikmaðurinn hreyfist.
+    public float speed = 0;
+
+    // UI textahlut fyrir að sýna fjölda safnaðra "PickUp" hluta.
+    public TextMeshProUGUI countText;
+
+    // UI hlut til að sýna sigurskýringuna.
+    public GameObject winTextObject;
+
+    // Start er kallað fyrir fyrstu ramma uppfærsluna.
     void Start()
     {
-        playerRb = GetComponent<Rigidbody>(); // Get Rigidbody component
+        // Fá og vista Rigidbody hlutann sem tengist leikmanninum.
+        rb = GetComponent<Rigidbody>();
+
+        // Initialize fjölda á núll.
+        count = 0;
+
+        // Uppfæra sýningu á fjölda.
+        SetCountText();
+
+        // Upphaflega stilla sigurtextann sem óvirkan.
+        winTextObject.SetActive(false);
+    }
+ 
+    // Þessi aðgerð er kölluð þegar hreyfingarinput er greint.
+    void OnMove(InputValue movementValue)
+    {
+        // Breyta input gildinu í Vector2 fyrir hreyfingu.
+        Vector2 movementVector = movementValue.Get<Vector2>();
+
+        // Vista X- og Y-samstæður hreyfingarinnar.
+        movementX = movementVector.x; 
+        movementY = movementVector.y; 
     }
 
-    // Update is called once per frame
-    void Update()
+    // FixedUpdate er kallað einu sinni á hverju fastar ramma-uppfærslunni.
+    private void FixedUpdate() 
     {
-        forwardInput = Input.GetAxis("Vertical");
-        horizontalInput = Input.GetAxis("Horizontal");
+        // Búa til 3D hreyfingarsamsettningu með X- og Y-inputunum.
+        Vector3 movement = new Vector3(movementX, 0.0f, movementY);
 
-        // Move the vehicle forward and rotate
-        transform.Translate(Vector3.forward * Time.deltaTime * speed * forwardInput);
-        transform.Rotate(Vector3.up, turnSpeed * horizontalInput * Time.deltaTime);
+        // Beita krafti á Rigidbody til að hreyfa leikmanninn.
+        rb.AddForce(movement * speed); 
+    }
 
-        // Jump when spacebar is pressed and player is on the ground
-        if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
+    void OnTriggerEnter(Collider other) 
+    {
+        // Athuga hvort hlutinn sem leikmaðurinn snerti hafi "PickUp" merkimiða.
+        if (other.gameObject.CompareTag("PickUp")) 
         {
-            playerRb.velocity = new Vector3(playerRb.velocity.x, jumpForce, playerRb.velocity.z);
-            isOnGround = false; // Prevent multiple jumps
+            // Óvirkja hlutinn sem snertist (láta hann hverfa).
+            other.gameObject.SetActive(false);
+
+            // Auka fjölda safnaðra "PickUp" hluta.
+            count = count + 1;
+
+            // Uppfæra sýningu á fjölda.
+            SetCountText();
         }
     }
 
-    // Detect if player lands on the ground
+    // Aðgerð til að uppfæra sýndan fjölda safnaðra "PickUp" hluta.
+    void SetCountText() 
+    {
+        // Uppfæra textann með núverandi fjölda.
+        countText.text = "Fjöldi: " + count.ToString();
+
+        // Athuga hvort fjöldinn hafi náð eða farið fram úr sigurskilyrðum.
+        if (count >= 15)
+        {
+            // Sýna sigurtextann.
+            winTextObject.SetActive(true);
+
+            // Eyða óvinar GameObject.
+            Destroy(GameObject.FindGameObjectWithTag("Enemy"));
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
-        isOnGround = true;
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            // Eyða núverandi hlut
+            Destroy(gameObject); 
+     
+            // Uppfæra sigurtextann til að sýna "Þú tapar!"
+            winTextObject.gameObject.SetActive(true);
+            winTextObject.GetComponent<TextMeshProUGUI>().text = "Þú tapar!";
+        }
     }
 }
