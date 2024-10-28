@@ -1,0 +1,14 @@
+i. Scene view:
+Þetta svæði sýnir vinnusvæðið þar sem þú getur séð og breytt öllum hlutum í leiknum. Þú getur fært, snúið og skalað leikhluti, stillt útlit sviðsins og unnið með þrívíddar og tvívíddarviðmót til að búa til leikheiminn.
+
+ii. Game view:
+Þetta svæði sýnir hvernig leikurinn lítur út þegar hann er keyrður. Það er eins konar forskoðunargluggi þar sem þú getur prófað leikinn og séð hvernig hann mun líta út fyrir leikmennina.
+
+iii. Project:
+Hér eru allir skrár og assets leiksins geymdar, eins og myndir, hljóð, skriptur, módelar og fleira. Þetta er eins konar skráarkerfi þar sem þú getur stjórnað og skipulagt auðlindir leiksins.
+
+iv. Hierarchy:
+Þetta svæði sýnir alla leikhluti sem eru í núverandi sviði. Hlutirnir eru skipulagðir í trébyggingu sem gerir það auðvelt að sjá hvernig hlutirnir tengjast hver öðrum, til dæmis hvernig foreldra- og barnahlutir tengjast.
+
+v. Inspector:
+Í þessum glugga getur þú breytt eiginleikum fyrir þann leikhlut sem er valinn í Hierarchy. Þú getur stillt hegðun, efni, hreyfanleika og aðra eiginleika leikhlutarins í þessum glugga.
