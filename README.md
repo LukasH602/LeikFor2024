@@ -24,16 +24,10 @@
 -
 
 ## Verkefni 4
--
--
--
--
--
+- [Verk4 Skriptur](https://github.com/LukasH602/LeikFor2024/tree/main/Verk4/Scripts)
+- [verk4.mp4](https://github.com/LukasH602/LeikFor2024/blob/main/Verkefni4.mp4)
 
 ## Verkefni 5
--
--
--
--
--
+- [Verk 5 Skriptur](https://github.com/LukasH602/LeikFor2024/tree/main/Verkefni5/Scripts)
+- [verk5.mp4](https://github.com/LukasH602/LeikFor2024/blob/main/Verk5.mp4)
 
