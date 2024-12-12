@@ -17,11 +17,8 @@
 -
 
 ## Verkefni 3
--
--
--
--
--
+- [Verk3 Skriptur](https://github.com/LukasH602/LeikFor2024/tree/main/Verkefni3/Scripts)
+- [verk3.mp4](https://github.com/LukasH602/LeikFor2024/blob/main/verk3.2.mp4)
 
 ## Verkefni 4
 - [Verk4 Skriptur](https://github.com/LukasH602/LeikFor2024/tree/main/Verk4/Scripts)
